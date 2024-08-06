@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "143095121157",
+    "project_id": "shop-buddy-eba28",
+    "storage_bucket": "shop-buddy-eba28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143095121157:android:51470abcb1a8f37a12e36c",
+        "android_client_info": {
+          "package_name": "com.example.adminshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdKOqKXBpHprHwJ7USJkTJzmthdFYaTG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
