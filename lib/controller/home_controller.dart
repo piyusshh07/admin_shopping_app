@@ -1,3 +1,4 @@
+import 'package:adminshop/Orders/Orders.dart';
 import 'package:adminshop/product/product.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 class HomeController extends GetxController{
    FirebaseFirestore firestore=FirebaseFirestore.instance;
    late CollectionReference productCollection;
+   late CollectionReference orderscollection;
 
    TextEditingController Productnamectrl=TextEditingController();
    TextEditingController Descriptionctrl=TextEditingController();
@@ -16,13 +18,15 @@ class HomeController extends GetxController{
    bool offer=false;
    String Brand='';
    bool isSaving=false;
-
+   List<Orders> orders=[];
    List<Product> products=[];
 
    @override
   void onInit() async{
 productCollection=firestore.collection('products');
+orderscollection=firestore.collection('orders');
 await fetchproducts();
+ await fetchproducts();
    super.onInit();
   }
 
@@ -84,7 +88,22 @@ await fetchproducts();
      finally{
        update();
      }
+   }
+   fetchorders() async {
+     try {
+         QuerySnapshot orderssnapshots = await orderscollection
+             .get();
+         final List<Orders> retrieveorders = orderssnapshots.docs
+             .map((doc) => Orders.fromJson(doc.data() as Map<String, dynamic>))
+             .toList();
 
+         orders.clear();
+         orders.assignAll(retrieveorders);
+     } catch (error) {
+       Get.snackbar('Error', error.toString(), colorText: Colors.red);
+     } finally {
+       update();
+     }
    }
    deeleteproduct(String id)async{
      try{
@@ -95,6 +114,17 @@ await fetchproducts();
      catch(error){
        Get.snackbar('Error', error.toString(),colorText: Colors.red);
      }
+   }
+   deleteorder(String id)async{
+     try{
+       await orderscollection.doc(id).delete();
+       Get.snackbar('Success', 'Product deleted successfully',colorText: Colors.green);
+       fetchproducts();
+     }
+     catch(error){
+       Get.snackbar('Error', error.toString(),colorText: Colors.red);
+     }
+     update();
    }
    setvaluesdefault(){
      Productnamectrl.clear();

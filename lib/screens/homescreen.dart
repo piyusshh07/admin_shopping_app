@@ -1,4 +1,5 @@
 import 'package:adminshop/controller/home_controller.dart';
+import 'package:adminshop/screens/orders_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:adminshop/screens/addproductscreen.dart';
@@ -15,6 +16,12 @@ class Homescreen extends StatelessWidget {
             title: const Text(
               'Products List', style: TextStyle(fontWeight: FontWeight.bold),),
             backgroundColor: Colors.indigoAccent,
+            actions: [
+              IconButton(onPressed: (){
+                ctrl.fetchorders();
+                Get.to(OrdersScreen());
+              }, icon: Icon(Icons.shopping_bag))
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
